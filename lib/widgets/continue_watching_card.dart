@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/config.dart';
 
@@ -33,6 +35,8 @@ class ContinueWatchingCard extends StatelessWidget {
             if (snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.done) {
                 var data = snapshot.data;
+                Random random = Random();
+
                 return SizedBox(
                   height: 175,
                   child: ListView.builder(
@@ -40,7 +44,7 @@ class ContinueWatchingCard extends StatelessWidget {
                       itemCount: data!.length,
                       itemBuilder: (context, index) {
                         var imageData = data[index]['backdrop_path'];
-
+                        int randomN = random.nextInt(99);
                         var image = 'https://${Config.imageUrl}${imageData}';
                         bool isNew = false;
                         if (index == 7) {
@@ -49,6 +53,7 @@ class ContinueWatchingCard extends StatelessWidget {
                         return Stack(
                           children: [
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   margin: const EdgeInsets.symmetric(
@@ -72,21 +77,25 @@ class ContinueWatchingCard extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                // LinearProgressIndicator(
-                                //   minHeight: 3.5,
-                                // ),
-                                Container( 
-                                  height: 3.5,
-                                  width: 100,
-                                  color: Colors.red,
-                                  child: LinearProgressIndicator(
-                                    value:.6,
-                                  minHeight: 3.5,
-                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 0),
+                                    height: 3.5,
+                                    width: randomN.toDouble(),
+                                    color: Colors.red,
+                                    //   child: LinearProgressIndicator(
+                                    //     value:.6,
+                                    //   minHeight: 3.5,
+                                    // ),
+                                  ),
                                 ),
                                 Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 0),
                                   padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
+                                      const EdgeInsets.only(left: 7,right: 5,bottom: 2),
                                   height: 30,
                                   width: 100,
                                   decoration: BoxDecoration(
@@ -120,10 +129,8 @@ class ContinueWatchingCard extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Colors.black12.withOpacity(.4),
                                   borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 1
-                                  ),
+                                  border:
+                                      Border.all(color: Colors.white, width: 1),
                                 ),
                                 child: const Icon(
                                   Icons.play_arrow,
@@ -134,8 +141,8 @@ class ContinueWatchingCard extends StatelessWidget {
                             ),
                             isNew
                                 ? Positioned(
-                                    bottom: 5,
-                                    left: 20,
+                                    bottom: 35,
+                                    left: 15,
                                     child: Container(
                                       width: 70,
                                       height: 18,
@@ -168,12 +175,12 @@ class ContinueWatchingCard extends StatelessWidget {
                 );
               } else {
                 return Container(
-                  height: 150,
+                  height: 175,
                 );
               }
             } else {
               return Container(
-                height: 150,
+                height: 175,
               );
             }
           },

@@ -37,72 +37,74 @@ class MovieCard extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: data!.length,
                       itemBuilder: (context, index) {
-                        var imageData = data[index]['backdrop_path'];
-
+                        var imageData = data[index]['backdrop_path'].toString();
                         var image = 'https://${Config.imageUrl}${imageData}';
                         bool isNew = false;
                         if (index == 7) {
                           isNew = true;
                         }
-                        return Stack(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 5),
-                              width: 100,
-                              height: 140,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: imageData == null
-                                  ? Center(
-                                      child: Text(
-                                        data[index]['title'],
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    )
-                                  : ClipRRect(
+                        return imageData == "null"
+                            ?Container() :Stack(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5, vertical: 5),
+                                    width: 100,
+                                    height: 140,
+                                    decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      child: Image(
-                                        image: NetworkImage(image),
-                                        fit: BoxFit.cover,
-                                      ),
                                     ),
-                            ),
-                            isNew
-                                ? Positioned(
-                                    bottom: 5,
-                                    left: 20,
-                                    child: Container(
-                                      width: 70,
-                                      height: 18,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(
-                                            5,
+                                    child: imageData == null
+                                        ? Center(
+                                            child: Text(
+                                              data[index]['title'],
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          )
+                                        : ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            child: Image(
+                                              image: NetworkImage(image),
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
-                                          topLeft: Radius.circular(
-                                            5,
+                                  ),
+                                  isNew
+                                      ? Positioned(
+                                          bottom: 5,
+                                          left: 20,
+                                          child: Container(
+                                            width: 70,
+                                            height: 18,
+                                            decoration: const BoxDecoration(
+                                              color: Colors.red,
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(
+                                                  5,
+                                                ),
+                                                topLeft: Radius.circular(
+                                                  5,
+                                                ),
+                                              ),
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                'New Season',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          'New Season',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : Container(),
-                          ],
-                        );
+                                        )
+                                      : Container(),
+                                ],
+                              );
                       }),
                 );
               } else {
