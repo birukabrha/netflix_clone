@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
 
-class NavBarController extends GetxController {
+class AppBarController extends GetxController {
   var visible = true.obs;
 }

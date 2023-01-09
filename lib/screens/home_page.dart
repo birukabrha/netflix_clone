@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:netflix_clone/controllers/navbar_controller.dart';
+import 'package:netflix_clone/controllers/appbar_controller.dart';
 import 'package:netflix_clone/services/api_services.dart';
 import 'package:netflix_clone/widgets/continue_watching_card.dart';
 import 'package:netflix_clone/widgets/games_card.dart';
@@ -11,11 +11,12 @@ import 'package:netflix_clone/widgets/movie_card.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final NavBarController _controller = Get.put(NavBarController());
+  final AppBarController _controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           NotificationListener<UserScrollNotification>(
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
                   future: ApiServices().popular(true),
                   title: 'Popular on Netflix',
                 ),
-                GamesCard(),
+                // GamesCard(),
                 MovieCard(
                   future: ApiServices().trendingM(true),
                   title: 'Trending',

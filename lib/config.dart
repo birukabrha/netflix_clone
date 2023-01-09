@@ -12,6 +12,8 @@ class Config{
   static const String trendingTDay = "/3/trending/tv/day";
   static const String trendingTWeek = "/3/trending/tv/week";
   static const String find = "/3/find";
+  static const String movieID = "/3/movie";
+  static const String tvID = "/3/tv";
   static const String genreM = "/3/genre/movie/list";
   static const String genreT = "/3/genre/tv/list";
   static const String searchM = "/3/search/movie";

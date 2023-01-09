@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netflix_clone/config.dart';
+import 'package:netflix_clone/screens/info_page.dart';
 import 'package:netflix_clone/services/api_services.dart';
 
 class MovieCard extends StatelessWidget {
@@ -44,66 +46,73 @@ class MovieCard extends StatelessWidget {
                           isNew = true;
                         }
                         return imageData == "null"
-                            ?Container() :Stack(
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 5, vertical: 5),
-                                    width: 100,
-                                    height: 140,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                            ? Container(
+                                child: Center(
+                                  child: Text(
+                                    data[index]['title'],
+                                    style: const TextStyle(
+                                      color: Colors.white,
                                     ),
-                                    child: imageData == null
-                                        ? Center(
-                                            child: Text(
-                                              data[index]['title'],
-                                              style: const TextStyle(
-                                                color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () => Get.bottomSheet(
+                                  InfoPage(movieData: data[index]),
+                                  isScrollControlled: true,
+                                  isDismissible: true,
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 5),
+                                      width: 100,
+                                      height: 140,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image(
+                                          image: NetworkImage(image),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    isNew
+                                        ? Positioned(
+                                            bottom: 5,
+                                            left: 20,
+                                            child: Container(
+                                              width: 70,
+                                              height: 18,
+                                              decoration: const BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(
+                                                    5,
+                                                  ),
+                                                  topLeft: Radius.circular(
+                                                    5,
+                                                  ),
+                                                ),
+                                              ),
+                                              child: const Center(
+                                                child: Text(
+                                                  'New Season',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ),
                                             ),
                                           )
-                                        : ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            child: Image(
-                                              image: NetworkImage(image),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                  ),
-                                  isNew
-                                      ? Positioned(
-                                          bottom: 5,
-                                          left: 20,
-                                          child: Container(
-                                            width: 70,
-                                            height: 18,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(
-                                                  5,
-                                                ),
-                                                topLeft: Radius.circular(
-                                                  5,
-                                                ),
-                                              ),
-                                            ),
-                                            child: const Center(
-                                              child: Text(
-                                                'New Season',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 10,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      : Container(),
-                                ],
+                                        : Container(),
+                                  ],
+                                ),
                               );
                       }),
                 );

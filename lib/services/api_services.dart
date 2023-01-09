@@ -19,8 +19,10 @@ class ApiServices {
   }
 
   Future<List<dynamic>> popular(bool isMovie) async {
-    var url =
-        Uri.https(Config.apiUrl, isMovie?Config.popularM:Config.popularT, {'api_key': Config.apiKey});
+    var url = Uri.https(
+        Config.apiUrl,
+        isMovie ? Config.popularM : Config.popularT,
+        {'api_key': Config.apiKey});
 
     final response = await http.get(url);
 
@@ -47,6 +49,29 @@ class ApiServices {
         Config.apiUrl,
         isDay ? Config.trendingTDay : Config.trendingTWeek,
         {'api_key': Config.apiKey});
+
+    final response = await http.get(url);
+
+    final parsedJson = jsonDecode(response.body);
+    // print(parsedJson['results']);
+    return parsedJson['results'];
+  }
+
+  Future<List<dynamic>> movieByID(int id) async {
+    var url = Uri.https(Config.apiUrl, '${Config.movieID}/$id',
+        {'api_key': Config.apiKey});
+    print(url);
+    final response = await http.get(url);
+
+    final parsedJson = jsonDecode(response.body);
+    print(parsedJson['results']);
+    return parsedJson['results'];
+  }
+
+  Future<List<dynamic>> tvByID(int id) async {
+    var url = Uri.https(Config.apiUrl, '${Config.tvID}/$id', {
+      'api_key': Config.apiKey,
+    });
 
     final response = await http.get(url);
 

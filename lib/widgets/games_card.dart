@@ -17,8 +17,13 @@ class GamesCard extends StatelessWidget {
         ),
       ),
       child: ListView.builder(
+        itemCount: 4,
         itemBuilder: (context, index) {
-          return Container();
+          return Container(
+            width: 50,
+            height: 50,
+            color: Colors.amber,
+          );
         },
       ),
     );

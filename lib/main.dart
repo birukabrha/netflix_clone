@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:netflix_clone/screens/bottom_navbar.dart';
 import 'package:netflix_clone/screens/home_page.dart';
 
 void main() {
@@ -10,13 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Netflix Clone',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
+      home: BottomNavBar(),
     );
   }
 }
