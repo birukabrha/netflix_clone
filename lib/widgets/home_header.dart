@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netflix_clone/config.dart';
+import 'package:netflix_clone/screens/info_page.dart';
 import 'package:netflix_clone/services/api_services.dart';
 import 'package:netflix_clone/services/id_list.dart';
 
@@ -130,13 +132,13 @@ class HomeHeader extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  onPrimary: Colors.black,
-                                  minimumSize: Size(100, 35),
-                                  maximumSize: Size(100, 35),
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: Colors.black,
+                                  minimumSize: const Size(100, 35),
+                                  maximumSize: const Size(100, 35),
                                 ),
                                 child: Row(
-                                  children: [
+                                  children: const [
                                     Icon(
                                       Icons.play_arrow,
                                     ),
@@ -149,21 +151,28 @@ class HomeHeader extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  Icon(
-                                    Icons.info_outline,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    'Info',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ],
+                              GestureDetector(
+                                onTap: () => Get.bottomSheet(
+                                  InfoPage(movieData: data),
+                                  isScrollControlled: true,
+                                  isDismissible: true,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: const [
+                                    Icon(
+                                      Icons.info_outline,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      'Info',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

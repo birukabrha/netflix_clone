@@ -16,7 +16,7 @@ class MovieCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        title == 'null'?Container():Padding(
           padding: const EdgeInsets.only(top: 10, bottom: 5, left: 8),
           child: Text(
             title,
