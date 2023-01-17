@@ -30,7 +30,7 @@ class HomeHeader extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 490,
+                    height: 550,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(finalImage),
@@ -92,15 +92,15 @@ class HomeHeader extends StatelessWidget {
                             separatorBuilder: (context, index) {
                               return Container(
                                 margin: const EdgeInsets.only(
-                                  top: 8,
-                                  bottom: 8,
+                                  top: 10,
+                                  bottom: 10,
                                   left: 5,
                                   right: 5,
                                 ),
-                                width: 8,
-                                height: 8,
+                                width: 6,
+                                height: 6,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey,
+                                  color: Colors.redAccent,
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                               );
@@ -146,6 +146,7 @@ class HomeHeader extends StatelessWidget {
                                       'Play',
                                       style: TextStyle(
                                         color: Colors.black,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ],
@@ -153,7 +154,7 @@ class HomeHeader extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () => Get.bottomSheet(
-                                  InfoPage(movieData: data),
+                                  InfoPage(movieData: data, isMovie: false,),
                                   isScrollControlled: true,
                                   isDismissible: true,
                                 ),
@@ -185,12 +186,12 @@ class HomeHeader extends StatelessWidget {
             );
           } else {
             return Container(
-              height: 490,
+              height: 550,
             );
           }
         } else {
           return Container(
-            height: 490,
+            height: 550,
           );
         }
       },

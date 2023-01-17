@@ -5,34 +5,42 @@ import 'package:netflix_clone/screens/info_page.dart';
 import 'package:netflix_clone/services/api_services.dart';
 
 class MovieCard extends StatelessWidget {
-  const MovieCard({Key? key, required this.future, required this.title})
-      : super(key: key);
+  const MovieCard({
+    Key? key,
+    required this.future,
+    required this.title,
+    required this.isMovie,
+  }) : super(key: key);
 
   final Future future;
   final String title;
+  final bool isMovie;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        title == 'null'?Container():Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 5, left: 8),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 19,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
+        title == 'null'
+            ? Container()
+            : Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 5, left: 8),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
         FutureBuilder<dynamic>(
           future: future,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.done) {
                 var data = snapshot.data;
+                // print(data);
                 return SizedBox(
                   height: 150,
                   child: ListView.builder(
@@ -47,9 +55,11 @@ class MovieCard extends StatelessWidget {
                         }
                         return imageData == "null"
                             ? Container(
+                                width: 100,
+                                height: 140,
                                 child: Center(
                                   child: Text(
-                                    data[index]['title'],
+                                    data[index]['title'] ?? data[index]['name'],
                                     style: const TextStyle(
                                       color: Colors.white,
                                     ),
@@ -58,7 +68,8 @@ class MovieCard extends StatelessWidget {
                               )
                             : GestureDetector(
                                 onTap: () => Get.bottomSheet(
-                                  InfoPage(movieData: data[index]),
+                                  InfoPage(
+                                      movieData: data[index], isMovie: isMovie),
                                   isScrollControlled: true,
                                   isDismissible: true,
                                 ),
@@ -80,7 +91,7 @@ class MovieCard extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    isNew
+                                    isMovie&&isNew
                                         ? Positioned(
                                             bottom: 5,
                                             left: 20,

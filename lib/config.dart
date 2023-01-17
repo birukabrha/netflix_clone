@@ -19,7 +19,4 @@ class Config{
   static const String searchM = "/3/search/movie";
   static const String searchT = "/3/search/tv";
   static const String imageUrl = "image.tmdb.org/t/p/original";
-
-
-
 }

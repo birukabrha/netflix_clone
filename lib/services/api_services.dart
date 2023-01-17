@@ -27,15 +27,16 @@ class ApiServices {
     final response = await http.get(url);
 
     final parsedJson = jsonDecode(response.body);
-    // print(parsedJson['results']);
+    print(parsedJson['results'][4]['first_air_date']);
     return parsedJson['results'];
   }
 
   Future<List<dynamic>> trendingM(bool isDay) async {
     var url = Uri.https(
-        Config.apiUrl,
-        isDay ? Config.trendingMDay : Config.trendingMWeek,
-        {'api_key': Config.apiKey});
+      Config.apiUrl,
+      isDay ? Config.trendingMDay : Config.trendingMWeek,
+      {'api_key': Config.apiKey},
+    );
 
     final response = await http.get(url);
 
@@ -53,13 +54,13 @@ class ApiServices {
     final response = await http.get(url);
 
     final parsedJson = jsonDecode(response.body);
-    // print(parsedJson['results']);
+    // print(parsedJson['results'][4]);
     return parsedJson['results'];
   }
 
   Future<List<dynamic>> movieByID(int id) async {
-    var url = Uri.https(Config.apiUrl, '${Config.movieID}/$id',
-        {'api_key': Config.apiKey});
+    var url = Uri.https(
+        Config.apiUrl, '${Config.movieID}/$id', {'api_key': Config.apiKey});
     print(url);
     final response = await http.get(url);
 

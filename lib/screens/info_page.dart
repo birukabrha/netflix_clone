@@ -7,9 +7,14 @@ import 'package:netflix_clone/widgets/movie_card.dart';
 import 'package:netflix_clone/widgets/trailers_card.dart';
 
 class InfoPage extends StatefulWidget {
-  const InfoPage({super.key, required this.movieData});
+  const InfoPage({
+    super.key,
+    required this.movieData,
+    required this.isMovie,
+  });
 
   final dynamic movieData;
+  final bool isMovie;
 
   @override
   State<InfoPage> createState() => _InfoPageState();
@@ -24,7 +29,7 @@ class _InfoPageState extends State<InfoPage>
   void initState() {
     super.initState();
     tabController = TabController(
-      length: 4,
+      length: widget.isMovie ? 1 : 3,
       vsync: this,
     );
   }
@@ -169,31 +174,33 @@ class _InfoPageState extends State<InfoPage>
                 child: ListView(
                   // shrinkWrap: true,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 25,
-                          width: 25,
-                          margin: const EdgeInsets.only(
-                            top: 5,
-                            bottom: 5,
-                            right: 2,
+                    widget.isMovie
+                        ? Container()
+                        : Row(
+                            children: [
+                              Container(
+                                height: 25,
+                                width: 25,
+                                margin: const EdgeInsets.only(
+                                  top: 5,
+                                  bottom: 5,
+                                  right: 2,
+                                ),
+                                child: Image.asset(
+                                  'assets/images/N_icon1.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              Text(
+                                'SERIES',
+                                style: TextStyle(
+                                  color: Colors.grey.shade300,
+                                  letterSpacing: 2,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
-                          child: Image.asset(
-                            'assets/images/N_icon1.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        Text(
-                          'SERIES',
-                          style: TextStyle(
-                            color: Colors.grey.shade300,
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
                     widget.movieData['title'] != null
                         ? Text(
                             widget.movieData['title'],
@@ -232,23 +239,26 @@ class _InfoPageState extends State<InfoPage>
                                       ),
                                     )
                                   : Container(),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 20,
-                            height: 13,
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade700,
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                            child: const Text(
-                              '18+',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 9,
-                              ),
-                            ),
-                          )
+                          widget.movieData['adult']!= null
+                              ? widget.movieData['adult']?Container(
+                                  alignment: Alignment.center,
+                                  width: 20,
+                                  height: 13,
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade700,
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                  child: const Text(
+                                    '18+',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 9,
+                                    ),
+                                  ),
+                                ):Container()
+                              : Container(),
                         ],
                       ),
                     ),
@@ -433,28 +443,34 @@ class _InfoPageState extends State<InfoPage>
                       child: AppBar(
                         backgroundColor: Colors.transparent,
                         bottom: TabBar(
-                          indicator: const UnderlineTabIndicator(
+                          indicator: UnderlineTabIndicator(
                             borderSide:
-                                BorderSide(color: Colors.red, width: 3.0),
-                            insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40.0),
+                                const BorderSide(color: Colors.red, width: 3.0),
+                            insets: widget.isMovie
+                                ? const EdgeInsets.fromLTRB(150.0, 0.0, 150.0, 40.0)
+                                : const EdgeInsets.fromLTRB(
+                                    0.0, 0.0, 0.0, 40.0),
                           ),
                           labelStyle: const TextStyle(
                             fontSize: 12,
                           ),
-                          tabs: const [
-                            Tab(
-                              text: 'Episodes',
-                            ),
-                            Tab(
-                              text: 'Collection',
-                            ),
-                            Tab(
-                              text: 'More Like This',
-                            ),
-                            Tab(
-                              text: 'Trailers & More',
-                            ),
-                          ],
+                          tabs: widget.isMovie
+                              ? const [
+                                  Tab(
+                                    text: 'More Like This',
+                                  ),
+                                ]
+                              : const [
+                                  Tab(
+                                    text: 'Episodes',
+                                  ),
+                                  Tab(
+                                    text: 'More Like This',
+                                  ),
+                                  Tab(
+                                    text: 'Trailers & More',
+                                  ),
+                                ],
                           controller: tabController,
                           onTap: (int index) {
                             setState(() {
@@ -514,17 +530,6 @@ class _InfoPageState extends State<InfoPage>
                                       return const EpisodesCard();
                                     }),
                               ],
-                            ),
-                          ),
-                        ),
-                        Visibility(
-                          maintainState: true,
-                          visible: selectedIndex == 1,
-                          child: Container(
-                            height: 1000,
-                            color: Colors.red,
-                            child: const Center(
-                              child: Text('Content 2'),
                             ),
                           ),
                         ),

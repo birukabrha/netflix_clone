@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netflix_clone/controllers/appbar_controller.dart';
+import 'package:netflix_clone/controllers/category_controller.dart';
 import 'package:netflix_clone/screens/downloads_page.dart';
 import 'package:netflix_clone/screens/home_page.dart';
 import 'package:netflix_clone/screens/new_page.dart';
@@ -8,6 +9,7 @@ import 'package:netflix_clone/screens/new_page.dart';
 class BottomNavBar extends StatefulWidget {
   BottomNavBar({super.key});
   final AppBarController _controller = Get.put(AppBarController());
+  final CategoryController _categoryController = Get.put(CategoryController());
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -40,7 +42,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         unselectedLabelStyle: const TextStyle(
           color: Colors.grey,
           fontSize: 12,
-
         ),
         currentIndex: currentIndex,
         onTap: (value) {
