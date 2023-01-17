@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netflix_clone/config.dart';
+import 'package:netflix_clone/screens/info_page.dart';
+import 'package:netflix_clone/screens/more_bottomsheet.dart';
 
 class ContinueWatchingCard extends StatelessWidget {
   const ContinueWatchingCard({
@@ -81,7 +84,7 @@ class ContinueWatchingCard extends StatelessWidget {
                                   alignment: Alignment.centerLeft,
                                   child: Container(
                                     margin: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 0),
+                                        horizontal: 5, vertical: 0),
                                     height: 3.5,
                                     width: randomN.toDouble(),
                                     color: Colors.red,
@@ -94,8 +97,8 @@ class ContinueWatchingCard extends StatelessWidget {
                                 Container(
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 5, vertical: 0),
-                                  padding:
-                                      const EdgeInsets.only(left: 7,right: 5,bottom: 2),
+                                  padding: const EdgeInsets.only(
+                                      left: 7, right: 5, bottom: 2),
                                   height: 30,
                                   width: 100,
                                   decoration: BoxDecoration(
@@ -108,12 +111,28 @@ class ContinueWatchingCard extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: const [
-                                      Icon(Icons.info_outline,
-                                          color: Colors.grey),
-                                      Icon(
-                                        Icons.more_vert,
-                                        color: Colors.grey,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () => Get.bottomSheet(
+                                          InfoPage(
+                                              movieData: data[index],
+                                              isMovie: true),
+                                          isScrollControlled: true,
+                                          isDismissible: true,
+                                        ),
+                                        child: const Icon(Icons.info_outline,
+                                            color: Colors.grey),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () => Get.bottomSheet(
+                                          MoreButtomSheet(movieData: data[index],),
+                                          // isScrollControlled: true,
+                                          isDismissible: true,
+                                        ),
+                                        child: const Icon(
+                                          Icons.more_vert,
+                                          color: Colors.grey,
+                                        ),
                                       )
                                     ],
                                   ),

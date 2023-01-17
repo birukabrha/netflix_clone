@@ -29,7 +29,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           width: 30,
           height: 20,
           margin: const EdgeInsets.only(
-            right: 5,
+            right: 15,
             left: 5,
             top: 15,
             bottom: 15,

@@ -14,12 +14,13 @@ import 'package:netflix_clone/widgets/home_header.dart';
 import 'package:netflix_clone/widgets/movie_card.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key, required this.username}) : super(key: key);
+
+  final String username;
 
   final AppBarController _controller = Get.find();
   final CategoryController _catController = Get.find();
 
-  final String argument = Get.arguments[0];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class HomePage extends StatelessWidget {
                   isMovie: true,
                 ),
                 ContinueWatchingCard(
-                    username: argument, future: ApiServices().trendingT(true)),
+                    username: username, future: ApiServices().trendingT(true)),
                 MovieCard(
                   future: ApiServices().popular(false),
                   title: 'Popular TV Shows',
@@ -87,7 +88,8 @@ class HomePage extends StatelessWidget {
                             bottom: 5,
                           ),
                           child: GestureDetector(
-                            onTap: () => Get.offAll(() => BottomNavBar(), arguments: argument[0]),
+                            onTap: () => Get.offAll(() => BottomNavBar(),
+                                arguments: username),
                             child: Image.asset(
                               'assets/images/N_icon1.png',
                               fit: BoxFit.contain,

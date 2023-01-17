@@ -18,13 +18,16 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 0;
 
+  final String argument = Get.arguments[0];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
         children: [
-          HomePage(),
+          HomePage(username: argument,),
           NewAndHot(),
           Container(),
           DownloadPage(),
