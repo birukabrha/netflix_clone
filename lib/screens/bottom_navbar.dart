@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netflix_clone/controllers/appbar_controller.dart';
 import 'package:netflix_clone/controllers/category_controller.dart';
+import 'package:netflix_clone/controllers/user_controller.dart';
 import 'package:netflix_clone/screens/downloads_page.dart';
 import 'package:netflix_clone/screens/home_page.dart';
 import 'package:netflix_clone/screens/new_page.dart';
@@ -11,6 +12,7 @@ class BottomNavBar extends StatefulWidget {
   final AppBarController _controller = Get.put(AppBarController());
   final CategoryController _categoryController = Get.put(CategoryController());
 
+
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -18,7 +20,6 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 0;
 
-  final String argument = Get.arguments[0];
 
 
   @override
@@ -27,7 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          HomePage(username: argument,),
+          HomePage(),
           NewAndHot(),
           Container(),
           DownloadPage(),

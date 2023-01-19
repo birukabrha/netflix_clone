@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/widgets/app_bar.dart';
-import 'package:indexed_list_view/indexed_list_view.dart';
 import 'package:netflix_clone/widgets/coming_soon.dart';
 import 'package:netflix_clone/widgets/everyones_watching.dart';
 
@@ -13,12 +12,15 @@ class NewAndHot extends StatefulWidget {
 
 class _NewAndHotState extends State<NewAndHot> {
   late ScrollController listController;
+  final everyonesWatchingKey = GlobalKey();
+  final comingSoonKey = GlobalKey();
 
   @override
   void initState() {
     listController = ScrollController();
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,7 @@ class _NewAndHotState extends State<NewAndHot> {
                   scrollDirection: Axis.vertical,
                   controller: listController,
                   itemBuilder: (context, index) {
-                    return ComingSoon();
+                    return const ComingSoon();
                   },
                   itemCount: 5,
                 ),
@@ -127,11 +129,12 @@ class _NewAndHotState extends State<NewAndHot> {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      listController.animateTo(listController.offset - 435 * 5,
-                          curve: Curves.linear,
-                          duration: const Duration(milliseconds: 500));
-                    },
+                    onTap: () => Scrollable.ensureVisible(
+                      comingSoonKey.currentContext!,
+                      duration: const Duration(
+                        milliseconds: 500,
+                      ),
+                    ),
                     child: Container(
                       margin: const EdgeInsets.only(left: 10),
                       width: 130,
@@ -163,9 +166,10 @@ class _NewAndHotState extends State<NewAndHot> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      listController.animateTo(listController.offset + 435 * 5,
-                          curve: Curves.linear,
-                          duration: const Duration(milliseconds: 500));
+                      if (everyonesWatchingKey.currentContext != null) {
+                        Scrollable.ensureVisible(
+                            everyonesWatchingKey.currentContext!);
+                      }
                     },
                     child: Container(
                       margin: const EdgeInsets.only(left: 10),
@@ -205,3 +209,4 @@ class _NewAndHotState extends State<NewAndHot> {
     );
   }
 }
+

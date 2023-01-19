@@ -5,8 +5,10 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:netflix_clone/controllers/appbar_controller.dart';
 import 'package:netflix_clone/controllers/category_controller.dart';
+import 'package:netflix_clone/controllers/user_controller.dart';
 import 'package:netflix_clone/screens/bottom_navbar.dart';
 import 'package:netflix_clone/screens/catergory_page.dart';
+import 'package:netflix_clone/screens/profile_page.dart';
 import 'package:netflix_clone/services/api_services.dart';
 import 'package:netflix_clone/widgets/continue_watching_card.dart';
 import 'package:netflix_clone/widgets/games_card.dart';
@@ -14,13 +16,12 @@ import 'package:netflix_clone/widgets/home_header.dart';
 import 'package:netflix_clone/widgets/movie_card.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key, required this.username}) : super(key: key);
+  HomePage({Key? key,}) : super(key: key);
 
-  final String username;
 
   final AppBarController _controller = Get.find();
   final CategoryController _catController = Get.find();
-
+  final UserController _userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +55,10 @@ class HomePage extends StatelessWidget {
                   title: 'Trending',
                   isMovie: true,
                 ),
-                ContinueWatchingCard(
-                    username: username, future: ApiServices().trendingT(true)),
+                Obx(
+                  ()=>ContinueWatchingCard(
+                      username: _userController.selectedUser.value, future: ApiServices().trendingT(true)),
+                ),
                 MovieCard(
                   future: ApiServices().popular(false),
                   title: 'Popular TV Shows',
@@ -88,8 +91,9 @@ class HomePage extends StatelessWidget {
                             bottom: 5,
                           ),
                           child: GestureDetector(
-                            onTap: () => Get.offAll(() => BottomNavBar(),
-                                arguments: username),
+                            onTap: () => Get.offAll(
+                              () => BottomNavBar(),
+                            ),
                             child: Image.asset(
                               'assets/images/N_icon1.png',
                               fit: BoxFit.contain,
@@ -105,18 +109,27 @@ class HomePage extends StatelessWidget {
                             onPressed: () {},
                             icon: const Icon(Icons.search),
                           ),
-                          Container(
-                            width: 30,
-                            height: 20,
-                            margin: const EdgeInsets.only(
-                              right: 15,
-                              left: 5,
-                              top: 15,
-                              bottom: 15,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              color: Colors.green,
+                          Obx(
+                            ()=> GestureDetector(
+                              onTap: () => Get.to(()=>ProfilePage()),
+                              child: Container(
+                                width: 30,
+                                height: 20,
+                                margin: const EdgeInsets.only(
+                                  right: 15,
+                                  left: 5,
+                                  top: 15,
+                                  bottom: 15,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(3),
+                                  child: Image.network(_userController.selectedUserProfile.value),
+                                                      
+                                ),
+                              ),
                             ),
                           ),
                         ],

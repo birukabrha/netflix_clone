@@ -82,3 +82,61 @@ List<Map<String, dynamic>> moreData = [
     ),
   }
 ];
+
+List<Map<String, dynamic>> profileOptions = [
+  {
+    'leading': const Icon(
+      Icons.notifications_outlined,
+      color: Colors.grey,
+    ),
+    'text': 'Notifications',
+    'trailing': const Icon(
+      Icons.chevron_right_outlined,
+      color: Colors.grey,
+    ),
+  },
+  {
+    'leading': const Icon(
+      Icons.check,
+      color: Colors.grey,
+    ),
+    'text': 'My List',
+    'trailing': const Icon(
+      Icons.chevron_right_outlined,
+      color: Colors.grey,
+    ),
+  },
+  {
+    'leading': const Icon(
+      Icons.settings_outlined,
+      color: Colors.grey,
+    ),
+    'text': 'App Settings',
+    'trailing': const Icon(
+      Icons.chevron_right_outlined,
+      color: Colors.grey,
+    ),
+  },
+  {
+    'leading': const Icon(
+      Icons.person_outline,
+      color: Colors.grey,
+    ),
+    'text': 'Account',
+    'trailing': const Icon(
+      Icons.chevron_right_outlined,
+      color: Colors.grey,
+    ),
+  },
+  {
+    'leading': const Icon(
+      Icons.info_outline,
+      color: Colors.grey,
+    ),
+    'text': 'Help',
+    'trailing': const Icon(
+      Icons.chevron_right_outlined,
+      color: Colors.grey,
+    ),
+  },
+];

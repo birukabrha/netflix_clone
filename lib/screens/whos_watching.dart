@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netflix_clone/controllers/user_controller.dart';
 import 'package:netflix_clone/list.dart';
 import 'package:netflix_clone/screens/bottom_navbar.dart';
 import 'package:netflix_clone/widgets/whos_watching_card.dart';
 
 class WhosWatching extends StatelessWidget {
-  const WhosWatching({super.key});
+  WhosWatching({super.key});
+
+  UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +47,17 @@ class WhosWatching extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: (() => Get.offAll(() => BottomNavBar(),
-                    arguments: [profileData[index]['name']])),
+                onTap: (() {
+                  userController.selectedUser.value =
+                      profileData[index]['name'];
+                      userController.selectedUserProfile.value =
+                      profileData[index]['profile'];
+                  Get.offAll(
+                    () => BottomNavBar(),
+                  );
+                }),
                 child: WhosWatchingCard(
+                  isProfilePage: false,
                   name: profileData[index]['name'],
                   image: profileData[index]['profile'],
                   isLocked: profileData[index]['isLocked'],
